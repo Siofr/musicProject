@@ -1,12 +1,14 @@
 class Player {
-  float posX, posY, size;
+  float posX, posY, size, playerSpeed;
   int playerColour;
   PVector pos;
   
-  Player(float posX, float posY, float size, int playerColour) {
+  Player(float posX, float posY, float size, float playerSpeed, int playerColour) {
     this.posX = posX;
     this.posY = posY;
+    this.pos = new PVector(posX, posY);
     this.size = size;
+    this.playerSpeed = playerSpeed;
     this.playerColour = playerColour;
   }
   
@@ -33,13 +35,13 @@ class Player {
   void update() {
     if(keyPressed) {
       if (keyCode == LEFT) {
-        x -= speed;
+        x -= this.playerSpeed;
       } else if (keyCode == RIGHT) {
-        x += speed;
+        x += this.playerSpeed;
       } else if (keyCode == DOWN) {
-        y += speed;
+        y += this.playerSpeed;
       } else if (keyCode == UP) {
-        y -= speed;
+        y -= this.playerSpeed;
       }
     }
   }

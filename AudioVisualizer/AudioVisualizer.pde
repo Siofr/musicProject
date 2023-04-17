@@ -5,13 +5,23 @@ import ddf.minim.signals.*;
 import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 
-float x, y, speed, scale;
+// Player Variables
+float x, y, speed;
 
+// Enemy Variables
+float enemySpeed, enemyColour;
+
+// Scale of project, for resizability
+float scale;
+
+// Audio variables
 Minim minim;
 AudioPlayer audioPlayer;
 AudioBuffer audioBuffer;
 
+// Setting up custom classes
 ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+int maxEnemies = 100;
 Player player;
 
 void setup() {
@@ -19,10 +29,12 @@ void setup() {
   
   scale = height / 2;
   speed = 5;
+  enemySpeed = 3;
   x = width / 2;
   y = height / 2;
-  player = new Player(x, y, scale * 16, 255);
+  player = new Player(x, y, scale * 16, speed, 255);
   
+  generateEnemies();
   strokeWeight(scale / 500);
   
   minim = new Minim(this);
@@ -30,15 +42,26 @@ void setup() {
   // audioPlayer.loop();
   // audioBuffer = audioPlayer.mix;
   
-  for (int i = 0; i < enemies.size(); i++) {
-    enemies.get(i).createEnemy(random(0, width), random(0, height));
-  }
+  
   
 }
 
 void draw() {
   background(255);
+  
+  for (int i = 0; i < enemies.size(); i++) {
+    Enemy enemy = enemies.get(i);
+    enemy.createEnemy();
+  }
+  
   player.update();
   player.crosshair(x, y);
   player.createPlayer(x, y);
+}
+
+void generateEnemies() {
+  for (int i = 0; i < maxEnemies; i++) {
+    Enemy enemy = new Enemy(random(0, width), random(0, height), enemySpeed, scale * 16, 255);
+    enemies.add(enemy);
+  }
 }
