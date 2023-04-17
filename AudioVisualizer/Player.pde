@@ -1,9 +1,7 @@
 class Player {
-  float posX, posY, size, playerColour;
-  
-  Player() {
-    this(width / 2, height / 2, height / 16, 255);
-  }
+  float posX, posY, size;
+  int playerColour;
+  PVector pos;
   
   Player(float posX, float posY, float size, int playerColour) {
     this.posX = posX;
@@ -30,5 +28,19 @@ class Player {
     // Laser
     stroke(255, 0, 0);
     line(x, y, mouseX, mouseY);
+  }
+  
+  void update() {
+    if(keyPressed) {
+      if (keyCode == LEFT) {
+        x -= speed;
+      } else if (keyCode == RIGHT) {
+        x += speed;
+      } else if (keyCode == DOWN) {
+        y += speed;
+      } else if (keyCode == UP) {
+        y -= speed;
+      }
+    }
   }
 }

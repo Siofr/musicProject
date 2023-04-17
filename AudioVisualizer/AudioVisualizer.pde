@@ -11,6 +11,7 @@ Minim minim;
 AudioPlayer audioPlayer;
 AudioBuffer audioBuffer;
 
+ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 Player player;
 
 void setup() {
@@ -29,25 +30,15 @@ void setup() {
   // audioPlayer.loop();
   // audioBuffer = audioPlayer.mix;
   
+  for (int i = 0; i < enemies.size(); i++) {
+    enemies.get(i).createEnemy(random(0, width), random(0, height));
+  }
+  
 }
 
 void draw() {
   background(255);
-  movePlayer();
+  player.update();
   player.crosshair(x, y);
   player.createPlayer(x, y);
-}
-
-void movePlayer() {
-  if(keyPressed) {
-    if (keyCode == LEFT) {
-      x -= speed;
-    } else if (keyCode == RIGHT) {
-      x += speed;
-    } else if (keyCode == DOWN) {
-      y += speed;
-    } else if (keyCode == UP) {
-      y -= speed;
-    }
-  }
 }
