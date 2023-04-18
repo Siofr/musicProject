@@ -1,47 +1,31 @@
 class Player {
-  float posX, posY, size, playerSpeed;
+  float posX, posY, size, playerSpeed, xMovement, yMovement;
   int playerColour;
-  PVector pos;
+  PVector playerPosition;
   
-  Player(float posX, float posY, float size, float playerSpeed, int playerColour) {
-    this.posX = posX;
-    this.posY = posY;
-    this.pos = new PVector(posX, posY);
+  Player(PVector playerPosition, float size, float playerSpeed, int playerColour) {
+    this.playerPosition = playerPosition;
     this.size = size;
     this.playerSpeed = playerSpeed;
     this.playerColour = playerColour;
   }
   
-  void createPlayer(float x, float y) {
+  void createPlayer(PVector playerPosition) {
      stroke(0);
      fill(playerColour);
-     circle(x, y, width * 0.015);
-  }
-  
-  void crosshair(float x, float y) {
-  
-    // Target
-    stroke(0);
-    line(mouseX, mouseY - height * 0.005, mouseX, mouseY - height * 0.015);
-    line(mouseX, mouseY + height * 0.005, mouseX, mouseY + height * 0.015);
-    line(mouseX - width * 0.005, mouseY, mouseX - width * 0.015, mouseY);
-    line(mouseX + width * 0.005, mouseY, mouseX + width * 0.015, mouseY);
-  
-    // Laser
-    stroke(255, 0, 0);
-    line(x, y, mouseX, mouseY);
+     circle(playerPosition.x, playerPosition.y, width * 0.015);
   }
   
   void update() {
     if(keyPressed) {
       if (keyCode == LEFT) {
-        x -= this.playerSpeed;
+        playerPosition.x -= this.playerSpeed;
       } else if (keyCode == RIGHT) {
-        x += this.playerSpeed;
+        playerPosition.x += this.playerSpeed;
       } else if (keyCode == DOWN) {
-        y += this.playerSpeed;
+        playerPosition.y += this.playerSpeed;
       } else if (keyCode == UP) {
-        y -= this.playerSpeed;
+        playerPosition.y -= this.playerSpeed;
       }
     }
   }

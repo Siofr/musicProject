@@ -6,13 +6,18 @@ import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 
 // Player Variables
-float x, y, speed;
+float x, y, playerSize, speed;
+PVector playerPosition;
 
-// Enemy Variables
-float enemySpeed, enemyColour;
+// Pickup Variables
+float pickupColour, pickupSize;
+int numPickups;
 
 // Scale of project, for resizability
 float scale;
+
+// Score Counter
+int score = 0;
 
 // Audio variables
 Minim minim;
@@ -20,21 +25,23 @@ AudioPlayer audioPlayer;
 AudioBuffer audioBuffer;
 
 // Setting up custom classes
-ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-int maxEnemies = 100;
+ArrayList<Pickup> pickups = new ArrayList<Pickup>();
+int maxPickups = 5;
 Player player;
 
 void setup() {
   size(1000, 1000);
-  
+  numPickups = pickups.size();
+  generatePickups();
   scale = height / 2;
+  playerSize = scale / 16;
+  pickupSize = scale / 16;
   speed = 5;
-  enemySpeed = 3;
   x = width / 2;
   y = height / 2;
-  player = new Player(x, y, scale * 16, speed, 255);
-  
-  generateEnemies();
+  playerPosition = new PVector(x, y);
+  player = new Player(playerPosition, playerSize, speed, 255);
+
   strokeWeight(scale / 500);
   
   minim = new Minim(this);
@@ -48,20 +55,40 @@ void setup() {
 
 void draw() {
   background(255);
+  textSize(scale / 10);
+  fill(0);
+  text("Score: " + str(score), 40, 120);
+  back();
   
-  for (int i = 0; i < enemies.size(); i++) {
-    Enemy enemy = enemies.get(i);
-    enemy.createEnemy();
+  for (int i = 0; i < pickups.size(); i++) {
+    Pickup pickup = pickups.get(i);
+    pickup.createPickup();
+    numPickups += 1;
+    if (pickup.pickedUp(playerPosition, playerSize)) {
+      pickups.remove(i);
+      numPickups -= 1;
+      score += 1;
+    }
+  }
+  
+  numPickups = pickups.size();
+  
+  if (numPickups < maxPickups) {
+    generatePickups();
   }
   
   player.update();
-  player.crosshair(x, y);
-  player.createPlayer(x, y);
+  player.createPlayer(playerPosition);
 }
 
-void generateEnemies() {
-  for (int i = 0; i < maxEnemies; i++) {
-    Enemy enemy = new Enemy(random(0, width), random(0, height), enemySpeed, scale * 16, 255);
-    enemies.add(enemy);
+void generatePickups() {
+  while (numPickups < maxPickups) {
+    Pickup pickup = new Pickup(random(10 * scale, width - (10 * scale)), random(10 * scale, height - (10 * scale)), pickupSize, 255);
+    pickups.add(pickup);
+    numPickups = pickups.size();
   }
+}
+
+void back() {
+  
 }
