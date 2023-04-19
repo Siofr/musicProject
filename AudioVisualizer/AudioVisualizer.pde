@@ -13,6 +13,11 @@ PVector playerPosition;
 float pickupColour, pickupSize;
 int numPickups;
 
+// Healthbar Variables
+Health healthbar;
+PVector healthPosition;
+float healthWidth, healthHeight;
+
 // Scale of project, for resizability
 float scale;
 
@@ -30,9 +35,12 @@ int maxPickups = 5;
 Player player;
 
 void setup() {
-  fullScreen();
+  size(1000, 1000);
   numPickups = 0;
   generatePickups();
+  healthPosition = new PVector(790, 10);
+  healthWidth = 200;
+  healthHeight = 50;
   scale = height / 2;
   playerSize = scale / 16;
   pickupSize = scale / 16;
@@ -40,11 +48,12 @@ void setup() {
   x = width / 2;
   y = height / 2;
   playerPosition = new PVector(x, y);
+  healthbar = new Health(healthPosition, healthWidth, healthHeight);
   player = new Player(playerPosition, playerSize, speed, 255);
 
   strokeWeight(scale / 500);
   
-  minim = new Minim(this);
+  // minim = new Minim(this);
   // audioPlayer = minim.loadFile("epidermis.mp3");
   // audioPlayer.loop();
   // audioBuffer = audioPlayer.mix;
@@ -57,8 +66,9 @@ void draw() {
   background(255);
   textSize(scale / 10);
   fill(0);
-  text("Score: " + str(score), 40, 120);
+  text("Score: " + str(score), width / 2 - (scale / 7), scale / 8);
   back();
+  healthbar.createHealth();
   
   for (int i = 0; i < pickups.size(); i++) {
     Pickup pickup = pickups.get(i);
@@ -84,7 +94,7 @@ void draw() {
 
 void generatePickups() {
   while (numPickups < maxPickups) {
-    Pickup pickup = new Pickup(random(scale / 5, width - (scale / 5)), random(scale / 5, height - (scale / 5)), pickupSize, 255);
+    Pickup pickup = new Pickup(random(scale / 2, width - (scale / 2)), random(scale / 2, height - (scale / 2)), pickupSize, 255);
     pickups.add(pickup);
     numPickups = pickups.size();
   }
