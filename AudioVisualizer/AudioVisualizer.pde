@@ -30,13 +30,13 @@ int maxPickups = 5;
 Player player;
 
 void setup() {
-  size(1000, 1000);
-  numPickups = pickups.size();
+  fullScreen();
+  numPickups = 0;
   generatePickups();
   scale = height / 2;
   playerSize = scale / 16;
   pickupSize = scale / 16;
-  speed = 5;
+  speed = 0.03;
   x = width / 2;
   y = height / 2;
   playerPosition = new PVector(x, y);
@@ -79,11 +79,12 @@ void draw() {
   
   player.update();
   player.createPlayer(playerPosition);
+  playerPosition = player.playerPosition;
 }
 
 void generatePickups() {
   while (numPickups < maxPickups) {
-    Pickup pickup = new Pickup(random(10 * scale, width - (10 * scale)), random(10 * scale, height - (10 * scale)), pickupSize, 255);
+    Pickup pickup = new Pickup(random(scale / 5, width - (scale / 5)), random(scale / 5, height - (scale / 5)), pickupSize, 255);
     pickups.add(pickup);
     numPickups = pickups.size();
   }

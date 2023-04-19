@@ -17,16 +17,10 @@ class Player {
   }
   
   void update() {
-    if(keyPressed) {
-      if (keyCode == LEFT) {
-        playerPosition.x -= this.playerSpeed;
-      } else if (keyCode == RIGHT) {
-        playerPosition.x += this.playerSpeed;
-      } else if (keyCode == DOWN) {
-        playerPosition.y += this.playerSpeed;
-      } else if (keyCode == UP) {
-        playerPosition.y -= this.playerSpeed;
-      }
-    }
+    float differenceHorizontal = mouseX - playerPosition.x;
+    playerPosition.x += differenceHorizontal * this.playerSpeed;
+    
+    float differenceVertical = mouseY - playerPosition.y;
+    playerPosition.y += differenceVertical * this.playerSpeed;
   }
 }
