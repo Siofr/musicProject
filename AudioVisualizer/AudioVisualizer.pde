@@ -141,7 +141,7 @@ void gameScreen() {
 // Function for Game Over Screen
 void gameOverScreen() {
   fill(textColour.x, textColour.y, textColour.z);
-  text("GAME OVER", width / 2, height / 2);
+  text("GAME OVER", width / 2, height / 2 - (scale / 10));
   text("SCORE: " + str(score), width / 2, height / 2 + (scale /10));
 }
 
