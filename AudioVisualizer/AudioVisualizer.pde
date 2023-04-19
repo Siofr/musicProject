@@ -67,6 +67,7 @@ void setup() {
   healthHeight = 50;
   healthbar = new Health(healthPosition, healthWidth, healthHeight);
   
+  // Audio Setup
   // minim = new Minim(this);
   // audioPlayer = minim.loadFile("epidermis.mp3");
   // audioPlayer.loop();
@@ -76,15 +77,22 @@ void setup() {
 void draw() {
   background(255);
   
+  // If healthbar is depleted change scene to game over screen
   if(healthbar.healthWidth <= 0) {
     sceneNumber = 1;
   }
   
+  // Handles scene changing
   if (sceneNumber == 0) {
     gameScreen();
   } else if (sceneNumber == 1) {
     gameOverScreen();
   }
+}
+
+// Function for Maine Menu Screen
+void mainMenuScreen() {
+  
 }
 
 // Function for Game Screen
@@ -127,7 +135,7 @@ void gameOverScreen() {
   text("SCORE: " + str(score), width / 2, height / 2 + (scale /10));
 }
 
-// Functions
+// Generating Pickups
 void generatePickups() {
   while (numPickups < maxPickups) {
     Pickup pickup = new Pickup(random(scale / 2, width - (scale / 2)), random(scale / 2, height - (scale / 2)), pickupSize, 255);
@@ -136,6 +144,7 @@ void generatePickups() {
   }
 }
 
+// Function for background
 void back() {
   
 }

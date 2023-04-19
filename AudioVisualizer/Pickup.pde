@@ -14,7 +14,7 @@ class Pickup {
   void createPickup() {
      stroke(0);
      fill(pickupColour);
-     circle(this.posX, this.posY, width * 0.015);
+     circle(posX, posY, width * 0.015);
   }
   
   boolean pickedUp(PVector playerPos, float playerSize) {

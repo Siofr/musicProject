@@ -18,9 +18,9 @@ class Player {
   
   void update() {
     float differenceHorizontal = mouseX - playerPosition.x;
-    playerPosition.x += differenceHorizontal * this.playerSpeed;
+    playerPosition.x += differenceHorizontal * playerSpeed;
     
     float differenceVertical = mouseY - playerPosition.y;
-    playerPosition.y += differenceVertical * this.playerSpeed;
+    playerPosition.y += differenceVertical * playerSpeed;
   }
 }
