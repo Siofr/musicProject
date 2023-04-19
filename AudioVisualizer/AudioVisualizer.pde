@@ -10,15 +10,16 @@ int sceneNumber;
 
 // Player Variables
 float x, y, playerSize, playerSpeed;
-PVector playerPosition;
+PVector playerPosition, playerColour;
 
 // Pickup Variables
-float pickupColour, pickupSize;
+float pickupSize;
 int numPickups;
+PVector pickupColour;
 
 // Healthbar Variables
 Health healthbar;
-PVector healthPosition;
+PVector healthPosition, healthColour;
 int time;
 float healthWidth, healthHeight, depletionRate;
 
@@ -27,6 +28,9 @@ float scale;
 
 // Score Counter
 int score = 0;
+
+// Text Variables
+PVector textColour;
 
 // Audio variables
 Minim minim;
@@ -42,7 +46,7 @@ void setup() {
  
   size(1000, 1000);
   scale = height / 2;
-  strokeWeight(scale / 500);
+  noStroke();
   
   // Scenes
   sceneNumber = 0;
@@ -53,19 +57,25 @@ void setup() {
   playerSpeed = 0.03;
   playerSize = scale / 16;
   playerPosition = new PVector(x, y);
-  player = new Player(playerPosition, playerSize, playerSpeed, 255);
+  playerColour = new PVector(168, 220, 217);
+  player = new Player(playerPosition, playerSize, playerSpeed, playerColour);
   
   // Pickups
   numPickups = 0;
   pickupSize = scale / 16;
+  pickupColour = new PVector(226, 163, 199);
   generatePickups();
   
   // Healthbar
   depletionRate = 1;
   healthPosition = new PVector(790, 10);
+  healthColour = new PVector(214, 122, 177);
   healthWidth = 200;
   healthHeight = 50;
-  healthbar = new Health(healthPosition, healthWidth, healthHeight);
+  healthbar = new Health(healthPosition, healthWidth, healthHeight, healthColour);
+  
+  // Text
+  textColour = new PVector(96, 67, 95);
   
   // Audio Setup
   // minim = new Minim(this);
@@ -75,7 +85,7 @@ void setup() {
 }
 
 void draw() {
-  background(255);
+  background(253, 247, 250);
   
   // If healthbar is depleted change scene to game over screen
   if(healthbar.healthWidth <= 0) {
@@ -99,7 +109,7 @@ void mainMenuScreen() {
 void gameScreen() {
   textSize(scale / 10);
   textAlign(CENTER);
-  fill(0);
+  fill(textColour.x, textColour.y, textColour.z);
   text("Score: " + str(score), width / 2, scale / 8);
   
   healthbar.createHealth();
@@ -130,7 +140,7 @@ void gameScreen() {
 
 // Function for Game Over Screen
 void gameOverScreen() {
-  fill(0);
+  fill(textColour.x, textColour.y, textColour.z);
   text("GAME OVER", width / 2, height / 2);
   text("SCORE: " + str(score), width / 2, height / 2 + (scale /10));
 }
@@ -138,7 +148,7 @@ void gameOverScreen() {
 // Generating Pickups
 void generatePickups() {
   while (numPickups < maxPickups) {
-    Pickup pickup = new Pickup(random(scale / 2, width - (scale / 2)), random(scale / 2, height - (scale / 2)), pickupSize, 255);
+    Pickup pickup = new Pickup(random(scale / 2, width - (scale / 2)), random(scale / 2, height - (scale / 2)), pickupSize, pickupColour);
     pickups.add(pickup);
     numPickups = pickups.size();
   }

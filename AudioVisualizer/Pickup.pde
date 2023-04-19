@@ -1,9 +1,8 @@
 class Pickup {
   float posX, posY, size;
-  PVector currentPos;
-  int pickupColour;
+  PVector currentPos, pickupColour;
   
-  Pickup(float posX, float posY, float size, int pickupColour) {
+  Pickup(float posX, float posY, float size, PVector pickupColour) {
     this.posX = posX;
     this.posY = posY;
     this.currentPos = new PVector(posX, posY);
@@ -12,8 +11,7 @@ class Pickup {
   }
   
   void createPickup() {
-     stroke(0);
-     fill(pickupColour);
+     fill(pickupColour.x, pickupColour.y, pickupColour.z);
      circle(posX, posY, width * 0.015);
   }
   

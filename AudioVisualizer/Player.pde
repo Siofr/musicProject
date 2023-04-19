@@ -1,9 +1,8 @@
 class Player {
   float posX, posY, size, playerSpeed, xMovement, yMovement;
-  int playerColour;
-  PVector playerPosition;
+  PVector playerPosition, playerColour;;
   
-  Player(PVector playerPosition, float size, float playerSpeed, int playerColour) {
+  Player(PVector playerPosition, float size, float playerSpeed, PVector playerColour) {
     this.playerPosition = playerPosition;
     this.size = size;
     this.playerSpeed = playerSpeed;
@@ -11,8 +10,7 @@ class Player {
   }
   
   void createPlayer(PVector playerPosition) {
-     stroke(0);
-     fill(playerColour);
+     fill(playerColour.x, playerColour.y, playerColour.z);
      circle(playerPosition.x, playerPosition.y, width * 0.015);
   }
   
