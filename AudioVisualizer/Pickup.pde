@@ -11,8 +11,10 @@ class Pickup {
   }
   
   void createPickup() {
+     pushMatrix();
      fill(pickupColour.x, pickupColour.y, pickupColour.z);
-     circle(posX, posY, width * 0.015);
+     circle(posX, posY, size);
+     popMatrix();
   }
   
   boolean pickedUp(PVector playerPos, float playerSize) {
