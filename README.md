@@ -5,5 +5,4 @@ For this assignment I wanted to create a game in which elements on the screen re
 
 I added a score system and a music selection screen.
 
-Youtube Video:
-
+Youtube Video: https://youtu.be/-r--2mXevDU
