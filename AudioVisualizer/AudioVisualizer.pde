@@ -37,7 +37,7 @@ Minim minim;
 AudioPlayer audioPlayer;
 AudioBuffer audioBuffer;
 FFT fft;
-float theta, average, lerpedAverage, audioSize;
+float average, lerpedAverage, audioSize;
 
 // Setting up custom classes
 ArrayList<Pickup> pickups = new ArrayList<Pickup>();
@@ -202,9 +202,4 @@ void generatePickups() {
     pickups.add(pickup);
     numPickups = pickups.size();
   }
-}
-
-// Function for background
-void back() {
-  
 }
